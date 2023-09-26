@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
     private int numbOfOldHits = 0;      // Number of hidden objects
     private Vector3 currentVelocity;    // Current move speed of the camera
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         transform.position = Vector3.SmoothDamp(transform.position, target.position + Offset, ref currentVelocity, movementSmoothing);
         transform.LookAt(target);

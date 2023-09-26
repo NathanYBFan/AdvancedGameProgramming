@@ -11,6 +11,10 @@ public class SysPlayerInput : MonoBehaviour
     [SerializeField] [Required] [Tooltip("Character attack manager script to send attack inputs")]
     private GameCharacterAttackManager characterAttackManager;
 
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Required] [Tooltip("Manage menu interactions")]
+    private MenuManager menuManager;
+
     [Header("Direction of inputs")]
     [SerializeField] [ReadOnly] [Tooltip("Base movement direction")]
     private Vector3 direction;
@@ -32,6 +36,8 @@ public class SysPlayerInput : MonoBehaviour
             characterAttackManager.LaunchAttackOne();
         if (Input.GetButtonDown("Fire2"))
             characterController.Dash();
+        if (Input.GetButtonDown("Cancel"))
+            menuManager.OpenPauseMenu();
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
     }

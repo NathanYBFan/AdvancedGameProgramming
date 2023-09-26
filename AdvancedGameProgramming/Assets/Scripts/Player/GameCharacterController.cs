@@ -23,21 +23,31 @@ public class GameCharacterController : MonoBehaviour
     [SerializeField] [Tooltip("The dash force of the player")]
     private float dashForce = 20f;
 
+    private bool isGrounded = true;
+
     public void FixedUpdate()
     {
         Vector3 direction = playerInput.Direction * moveSpeed;
         direction.y = rigidbody3D.velocity.y;
         if (direction.magnitude >= 0.1f)
             rigidbody3D.velocity = transform.forward + direction;
+
+        CheckIfGrounded();
+    }
+
+    private void CheckIfGrounded()
+    {
+
     }
 
     public void Jump()
     {
-        rigidbody3D.AddForce(transform.up * jumpForce);
+        if (isGrounded)
+            rigidbody3D.AddForce(transform.up * jumpForce);
     }
 
     public void Dash()
     {
-        rigidbody3D.AddForce(transform.forward * dashForce);
+        rigidbody3D.velocity = transform.forward * dashForce;
     }
 }
