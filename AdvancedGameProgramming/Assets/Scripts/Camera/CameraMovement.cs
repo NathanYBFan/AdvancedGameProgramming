@@ -1,26 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Tooltip("Target to follow")]
     private Transform target;
     
-    [SerializeField]
+    [Foldout("Camera Specs")]
+    [SerializeField] [Tooltip("Offset for the camera to be at (From the target)")]
     Vector3 Offset = Vector3.zero;
 
-    [SerializeField]
+    [Foldout("Camera Specs")]
+    [SerializeField] [ReadOnly] [Tooltip("List of obstructions currently infront of the player")] 
     private Transform[] obstructions;
 
-    [SerializeField] [Range(0, 1)]
+    [Foldout("Camera Specs")]
+    [SerializeField] [Range(0, 1)] [Tooltip("How much delay before the camera catches up with the player")]
     private float movementSmoothing = 0.25f;
 
-    private int numbOfOldHits = 0;
-
-    private Vector3 currentVelocity;
+    private int numbOfOldHits = 0;      // Number of hidden objects
+    private Vector3 currentVelocity;    // Current move speed of the camera
 
     private void LateUpdate()
     {

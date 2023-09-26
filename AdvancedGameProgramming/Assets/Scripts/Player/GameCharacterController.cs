@@ -3,19 +3,25 @@ using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
 {
-    [SerializeField] [Required]     // Player input
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("Script SysPlayerInput to pull movement inputs from")]
     private SysPlayerInput playerInput;
 
-    [SerializeField] [Required]		// Player Rigidbody
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("The rigidbody attached to the character")]
     private Rigidbody rigidbody3D;
-    public Rigidbody Rigidbody3D { get {  return rigidbody3D; } }
 
-
-    [SerializeField]                // Move speed of player
+    [Foldout("Player specs")]
+    [SerializeField] [Tooltip("How fast the player should move")]
     private float moveSpeed = 6f;
 
-    [SerializeField]                // Jump force of player
+    [Foldout("Player specs")]
+    [SerializeField] [Tooltip("The jump force of the player")]
     private float jumpForce = 500f;
+
+    [Foldout("Player specs")]
+    [SerializeField] [Tooltip("The dash force of the player")]
+    private float dashForce = 20f;
 
     public void FixedUpdate()
     {
@@ -28,5 +34,10 @@ public class GameCharacterController : MonoBehaviour
     public void Jump()
     {
         rigidbody3D.AddForce(transform.up * jumpForce);
+    }
+
+    public void Dash()
+    {
+        rigidbody3D.AddForce(transform.forward * dashForce);
     }
 }

@@ -3,32 +3,35 @@ using UnityEngine;
 
 public class SysPlayerInput : MonoBehaviour
 {
-    [SerializeField] [Required]
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Required] [Tooltip("Character controller script to send jump and dash inputs")]
     private GameCharacterController characterController;
-    [SerializeField] [Required]
-    private GameCharacterAttackManager characterAttackManager = null;
-    
-    private float horizontal;
-    private float vertical;
-    private bool jumpPressed;
-    public bool JumpPressed { get { return jumpPressed; } }
-    
-    [SerializeField] [ReadOnly]
+
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Required] [Tooltip("Character attack manager script to send attack inputs")]
+    private GameCharacterAttackManager characterAttackManager;
+
+    [Header("Direction of inputs")]
+    [SerializeField] [ReadOnly] [Tooltip("Base movement direction")]
     private Vector3 direction;
     public Vector3 Direction { get { return direction; } }
 
+    // Inputs
+    private float horizontal;
+    private float vertical;
 
     // Update is called once per frame
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        jumpPressed = Input.GetButtonDown("Jump");
-        
-        if (jumpPressed)
+
+        if (Input.GetButtonDown("Jump"))
             characterController.Jump();
         if (Input.GetButtonDown("Fire1"))
             characterAttackManager.LaunchAttackOne();
+        if (Input.GetButtonDown("Fire2"))
+            characterController.Dash();
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
     }
