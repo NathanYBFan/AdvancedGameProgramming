@@ -12,6 +12,10 @@ public class GameCharacterDash : MonoBehaviour
     [SerializeField] [Required] [Tooltip("The rigidbody attached to the character")]
     private Rigidbody rigidbody3D;
 
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("The rigidbody attached to the character")]
+    private GameObject dashTrail;
+
     [Foldout("Specs")]
     [SerializeField] [Tooltip("The dash force of the player")]
     private float dashForce = 500f;
@@ -56,6 +60,12 @@ public class GameCharacterDash : MonoBehaviour
     private void Dash()
     {
         canDash = false;
+
+        //Not turning to face correct direction
+        Vector3 newPos = transform.position;
+        newPos.y += 1f;
+        GameObject.Instantiate(dashTrail, newPos, rigidbody3D.transform.rotation);
+
         characterController.maxYSpeed = maxDashYSpeed;
 
         Vector3 direction = characterController.orientation.forward;

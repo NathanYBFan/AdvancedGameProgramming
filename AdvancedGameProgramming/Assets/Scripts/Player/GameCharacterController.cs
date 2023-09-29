@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using System.Collections;
 using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
@@ -74,8 +73,6 @@ public class GameCharacterController : MonoBehaviour
         // calculate movement direction
         moveDirection = playerInput.Direction * moveSpeed;
 
-        // on ground
-        if (isGrounded)
-            rigidbody3D.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        rigidbody3D.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 }

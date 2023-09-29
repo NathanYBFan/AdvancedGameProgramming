@@ -1,10 +1,11 @@
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ExpController : MonoBehaviour
 {
     [Foldout("Script Dependancies")]
-    [SerializeField] [Tooltip("WhatObjectToDestroy")]
+    [SerializeField] [Tooltip("What object to destroy")]
     private GameObject objectToDestroy;
 
     [Foldout("Specs")]
@@ -23,6 +24,8 @@ public class ExpController : MonoBehaviour
     [SerializeField] [ReadOnly] [Tooltip("The amount of xp to give to the player when/if picked up")]
     private int OrbXPValue;
 
+    private Graph bobGraph;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,14 @@ public class ExpController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponentInChildren<GameCharacterStats>().PickedUpXP(OrbXPValue);
+            Debug.Log("Xp orb of " + OrbXPValue + " points has been added to the player's pool");
             Destroy(objectToDestroy);
         }
     }
+
+    private void Update()
+    {
+        // bobGraph.
+    }
+
 }
