@@ -12,6 +12,10 @@ public class SysPlayerInput : MonoBehaviour
     private GameCharacterAttackManager characterAttackManager;
 
     [Foldout("Script Dependencies")]
+    [SerializeField] [Required] [Tooltip("Character attack manager script to send attack inputs")]
+    private GameCharacterDash characterDashController;
+
+    [Foldout("Script Dependencies")]
     [SerializeField] [Required] [Tooltip("Manage menu interactions")]
     private MenuManager menuManager;
 
@@ -32,10 +36,13 @@ public class SysPlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
             characterController.Jump();
+
         if (Input.GetButtonDown("Fire1"))
             characterAttackManager.LaunchAttackOne();
+
         if (Input.GetButtonDown("Fire2"))
-            characterController.Dash();
+            characterDashController.AttemptDash();
+
         if (Input.GetButtonDown("Cancel"))
             menuManager.OpenPauseMenu();
 

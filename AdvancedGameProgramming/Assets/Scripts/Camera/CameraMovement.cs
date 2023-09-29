@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
     private Transform[] obstructions;
 
     [Foldout("Camera Specs")]
-    [SerializeField] [Range(0, 1)] [Tooltip("How much delay before the camera catches up with the player")]
+    [SerializeField] [Range(0, 5)] [Tooltip("How much delay before the camera catches up with the player")]
     private float movementSmoothing = 0.25f;
 
     private int numbOfOldHits = 0;      // Number of hidden objects
@@ -25,7 +25,6 @@ public class CameraMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position = Vector3.SmoothDamp(transform.position, target.position + Offset, ref currentVelocity, movementSmoothing);
-        transform.LookAt(target);
         ViewObstructed();
     }
 
