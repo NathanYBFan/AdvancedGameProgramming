@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class SysPlayerInput : MonoBehaviour
@@ -19,10 +20,12 @@ public class SysPlayerInput : MonoBehaviour
     [SerializeField] [Required] [Tooltip("Manage menu interactions")]
     private MenuManager menuManager;
 
-    [Header("Direction of inputs")]
+    [Foldout("Specs")]
     [SerializeField] [ReadOnly] [Tooltip("Base movement direction")]
     private Vector3 direction;
     public Vector3 Direction { get { return direction; } }
+
+    [SerializeField] private GameCharacterStats characterStats; // To be removed - Debug only
 
     // Inputs
     private float horizontal;
@@ -45,6 +48,20 @@ public class SysPlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Cancel"))
             menuManager.OpenPauseMenu();
+
+        // BELOW ARE ALL DEBUG KEYBINDS
+        if (Input.GetKeyDown(KeyCode.P)) // INCREASE HP
+            characterStats.AddCurrentHP(1);
+        else if (Input.GetKeyDown(KeyCode.O)) // DECREASE HP
+            characterStats.AddCurrentHP(-1);
+
+        if (Input.GetKeyDown(KeyCode.L)) // INCREASE MAX HP
+            characterStats.AddMaxHP(1);
+        else if (Input.GetKeyDown(KeyCode.K)) // DECREASE MAX HP
+            characterStats.AddMaxHP(-1);
+
+        if (Input.GetKeyDown(KeyCode.J)) // INCREASE XP
+            characterStats.PickedUpXP(1);
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
     }

@@ -1,12 +1,17 @@
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class ExpController : MonoBehaviour
 {
     [Foldout("Script Dependancies")]
-    [SerializeField] [Tooltip("What object to destroy")]
+    [SerializeField][Required][Tooltip("What object to destroy")]
     private GameObject objectToDestroy;
+
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("Rerference to object to move")]
+    private Transform objectToBounce;
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("How long to wait before despawning itself")]
@@ -24,7 +29,19 @@ public class ExpController : MonoBehaviour
     [SerializeField] [ReadOnly] [Tooltip("The amount of xp to give to the player when/if picked up")]
     private int OrbXPValue;
 
-    private Graph bobGraph;
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("The curve the bobbing animation should follow")]
+    private AnimationCurve myCurve;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("Speed at which the bob should happen")]
+    private float speed = 5f;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("MaxHeight the xp should bob")]
+    private float height = 0.5f;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +60,12 @@ public class ExpController : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
-        // bobGraph.
+        //calculate what the new Y position will be
+        float newY = Mathf.Sin(Time.time * speed) * height + objectToBounce.position.y;
+        //set the object's Y to the new calculated Y
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
 }
