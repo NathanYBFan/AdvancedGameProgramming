@@ -31,9 +31,19 @@ public class GameCharacterStats : MonoBehaviour
     [SerializeField] [Tooltip("Max amount of XP")]
     private int maxHp = 3;
 
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("Max amount of XP")]
+    private int xpBuff = 0;
+
+    [Foldout("Specs")] [SerializeField]
+    [Tooltip("Max amount of XP")]
+    private int xpMultiplier = 1;
+
     // Getters
     public float Xp { get { return xp; } }
-    public float MaxXP { get {  return maxXP; } }
+    public float MaxXP { get { return maxXP; } }
+    public int XpBuff { get { return xpBuff; } }
+    public int XpMultiplier { get { return xpMultiplier; } }
     public int HP { get { return hp; } }
     public int MaxHp { get {  return maxHp; } }
 
@@ -72,9 +82,9 @@ public class GameCharacterStats : MonoBehaviour
         hpBar.CurrentHPChanged();
     }
 
-    public void PickedUpXP(int expPickedUp)
+    public void PickedUpXP(int xpPickedUp)
     {
-        xp += expPickedUp;
+        xp += (xpPickedUp + xpBuff) * xpMultiplier;
         CheckMaxXP();
     }
 
@@ -88,5 +98,15 @@ public class GameCharacterStats : MonoBehaviour
             maxXP *= 2;
         }
         xpBar.RenderNewText();
+    }
+
+    public void AddXpBuff(int xpToAdd)
+    {
+        xpBuff = xpToAdd;
+    }
+
+    public void SetXpMultiplayer(int xpMultiplierToAdd)
+    {
+        xpMultiplier = xpMultiplierToAdd;
     }
 }

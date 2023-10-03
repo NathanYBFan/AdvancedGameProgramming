@@ -1,7 +1,5 @@
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class ExpController : MonoBehaviour
 {
@@ -41,8 +39,6 @@ public class ExpController : MonoBehaviour
     [SerializeField] [Tooltip("MaxHeight the xp should bob")]
     private float height = 0.5f;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -55,16 +51,15 @@ public class ExpController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponentInChildren<GameCharacterStats>().PickedUpXP(OrbXPValue);
-            Debug.Log("Xp orb of " + OrbXPValue + " points has been added to the player's pool");
             Destroy(objectToDestroy);
         }
     }
 
     void Update()
     {
-        //calculate what the new Y position will be
+        // Calculate what the new Y position will be
         float newY = Mathf.Sin(Time.time * speed) * height + objectToBounce.position.y;
-        //set the object's Y to the new calculated Y
+        // Set the object's Y to the new calculated Y
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 

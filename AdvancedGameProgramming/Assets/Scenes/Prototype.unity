@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964128, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -790,11 +790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d22c91a0dc1294f91beb1e48d596c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeManager: {fileID: 1698168587}
   upgrades: []
   upgradeParentTransform: {fileID: 2001247189}
   upgradePrefab: {fileID: 4899619257792087584, guid: 5ad67be9ce8015640adcb5f7ca848147, type: 3}
-  upgradeOptions:
-  - {fileID: 11400000, guid: 8ffe9421d071e2541ae960375025f4c0, type: 2}
   numberOfUpgradeOptions: 2
 --- !u!4 &392821373 stripped
 Transform:
@@ -3809,6 +3808,8 @@ MonoBehaviour:
   maxXP: 1
   hp: 3
   maxHp: 3
+  xpBuff: 0
+  xpMultiplier: 1
 --- !u!114 &1193756733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4432,8 +4433,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf0c1296959da041886211fbcfbe249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObjects:
-  - {fileID: 0}
+  upgradeScriptableObjects:
+  - {fileID: 11400000, guid: 8ffe9421d071e2541ae960375025f4c0, type: 2}
+  - {fileID: 11400000, guid: 2f215ee96cbbb1c4ba79ec5a2b6ac90d, type: 2}
+  - {fileID: 11400000, guid: 3411731748b48e84d912d10f9f3cfc01, type: 2}
+  - {fileID: 11400000, guid: cf1dbdddf2d7b954a8a01ac2604df53c, type: 2}
 --- !u!1 &1703527617
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,7 +20,13 @@ public class PlayerStatsManager : MonoBehaviour
     public void LevelUp()
     {
         level++;
+        OpenUpgradesMenu();
+    }
+
+    private void OpenUpgradesMenu()
+    {
         upgradesMenu.gameObject.SetActive(true);
+        upgradesMenu.GetComponent<UpgradesMenu>().OpenMenu();
         Time.timeScale = 0f;
     }
 }

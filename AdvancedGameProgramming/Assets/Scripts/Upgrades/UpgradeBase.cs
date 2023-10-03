@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Upgrade Base", menuName = "ScriptableObjects/UpgradeBase")]
+[Serializable]
 public class UpgradeBase : ScriptableObject
 {
     [SerializeField]

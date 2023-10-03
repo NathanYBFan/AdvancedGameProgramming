@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
-using TMPro;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour

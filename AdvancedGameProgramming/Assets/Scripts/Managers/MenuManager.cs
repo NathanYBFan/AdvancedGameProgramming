@@ -27,6 +27,17 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public bool IsSettingsMenuOpened()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "SettingsMenu" && scene.isLoaded)
+                return true;
+        }
+        return false;
+    }
+
     public void LoadAdditiveScene(string sceneNameToLoad)
     {
         SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Additive);

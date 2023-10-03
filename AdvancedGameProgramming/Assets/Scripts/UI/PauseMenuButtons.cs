@@ -27,16 +27,27 @@ public class PauseMenuButtons : MonoBehaviour
 
     public void OpenSettingsMenu()
     {
-        if (!IsGamePaused())
+        if (!IsSettingsMenuOpened())
         {
             SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
-            Time.timeScale = 1.0f;
+            Time.timeScale = 0f;
         }
         else
         {
             SceneManager.UnloadSceneAsync("SettingsMenu");
             Time.timeScale = 0f;
         }
+    }
+
+    private bool IsSettingsMenuOpened()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.name == "SettingsMenu" && scene.isLoaded)
+                return true;
+        }
+        return false;
     }
 
     public bool IsGamePaused() // Returns if it is paused

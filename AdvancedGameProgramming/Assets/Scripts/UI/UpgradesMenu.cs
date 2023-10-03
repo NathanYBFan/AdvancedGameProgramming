@@ -5,6 +5,10 @@ using UnityEngine;
 public class UpgradesMenu : MonoBehaviour
 {
     [Foldout("Script Dependencies")]
+    [SerializeField] [Tooltip("Upgrade Manager to get upgrade options")]
+    private UpgradesManager upgradeManager;
+
+    [Foldout("Script Dependencies")]
     [SerializeField] [Tooltip("Upgrade Options available to the player as a list")]
     private List<GameObject> upgrades;
 
@@ -16,32 +20,21 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField] [Tooltip("Prefab to spawn when needed")]
     private GameObject upgradePrefab;
 
-    [Foldout("Script Dependencies")]
-    [SerializeField] [Tooltip("What upgrades are avilable to pick")]
-    private List<UpgradeBase> upgradeOptions;
-
     [Foldout("Specs")]
     [SerializeField] [Tooltip("number of Options currenty available")]
     private int numberOfUpgradeOptions = 2;
 
     private int maxNumberOfUpgradeOptions = 5;
 
-    private void Awake()
-    {
-        Time.timeScale = 0f;
-        UpdateUpgradeOptions();
-        RollForPowerups();
-    }
-    
-    public void RollForPowerups()
+    public void ReRollAllPowerups()
     {
         if (upgrades == null) return;
 
         foreach (var upgrade in upgrades)
         {
-            int upgradeToShow = Random.Range(0, upgradeOptions.Count); // Replace 1 with the number of powerups
+            int upgradeToShow = Random.Range(0, upgradeManager.UpgradeScriptableObjects.Count); // Replace 1 with the number of powerups
             UpgradeCard upgradeCard = upgrade.GetComponent<UpgradeCard>();
-            upgradeCard.UpgradeBase = upgradeOptions[upgradeToShow];
+            upgradeCard.UpgradeBase = upgradeManager.UpgradeScriptableObjects[upgradeToShow];
             upgradeCard.ConfigureSO();
         }
     }
@@ -56,31 +49,32 @@ public class UpgradesMenu : MonoBehaviour
         else if (numberOfUpgradeOptions < 0)
             numberOfUpgradeOptions = 0;
 
-        UpdateUpgradeOptions();
+        UpdateAllUpgradeOptions();
     }
 
 
-    private void UpdateUpgradeOptions()
+    private void UpdateAllUpgradeOptions()
     {
         if (upgrades.Count == numberOfUpgradeOptions) return;
 
         else if (upgrades.Count < numberOfUpgradeOptions) // Need to increase number of options
         {
-            for (int i = 0; i < (numberOfUpgradeOptions - upgrades.Count); i++)
-            {
+            for (int i = 0; i < (numberOfUpgradeOptions - upgrades.Count) + 1; i++)
                 upgrades.Add(GameObject.Instantiate(upgradePrefab, upgradeParentTransform));
-                numberOfUpgradeOptions++;
-            }
         }
         
         else if (upgrades.Count > numberOfUpgradeOptions) // Need to decrase number of options
         {
             for (int i = 0; i < (upgrades.Count - numberOfUpgradeOptions); i++)
-            {
                 upgrades.RemoveAt(0);
-                numberOfUpgradeOptions--;
-            }
         }
+    }
+
+    public void OpenMenu()
+    {
+        Time.timeScale = 0f;
+        UpdateAllUpgradeOptions();
+        ReRollAllPowerups();
     }
 
     public void CloseMenu()
