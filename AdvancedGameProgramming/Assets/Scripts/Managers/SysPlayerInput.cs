@@ -26,7 +26,7 @@ public class SysPlayerInput : MonoBehaviour
     public Vector3 Direction { get { return direction; } }
 
     [SerializeField] private GameCharacterStats characterStats; // To be removed - Debug only
-
+    [SerializeField] private PlayerStatsManager playerStatsManager;
     // Inputs
     private float horizontal;
     private float vertical;
@@ -64,6 +64,9 @@ public class SysPlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))        // INCREASE XP
             characterStats.PickedUpXP(1);
+
+        if (Input.GetKeyDown(KeyCode.I))        // Level Up
+            playerStatsManager.LevelUp();
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
     }

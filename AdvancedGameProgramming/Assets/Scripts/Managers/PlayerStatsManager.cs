@@ -15,6 +15,7 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] [Tooltip("Number of Sword stacks")]
     private int numbOfSwordStacks = 0;
 
+    public int Level { get { return level; } }
     public int NumbOfSwordStacks { get { return numbOfSwordStacks; } set { numbOfSwordStacks = value; } }
 
     public void LevelUp()

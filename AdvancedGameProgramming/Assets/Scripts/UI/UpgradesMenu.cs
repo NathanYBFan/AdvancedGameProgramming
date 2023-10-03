@@ -49,6 +49,15 @@ public class UpgradesMenu : MonoBehaviour
         else if (numberOfUpgradeOptions < 0)
             numberOfUpgradeOptions = 0;
 
+        if (numberOfUpgradeOptions == maxNumberOfUpgradeOptions)
+        {
+            for (int i = 0; i < upgradeManager.UpgradeScriptableObjects.Count; i++)
+            {
+                if (upgradeManager.UpgradeScriptableObjects[i].name == "IncreaseUpgradeOptions")
+                    upgradeManager.UpgradeScriptableObjects.RemoveAt(i);
+            }
+        }
+
         UpdateAllUpgradeOptions();
     }
 

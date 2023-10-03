@@ -604,6 +604,7 @@ MonoBehaviour:
   menuManager: {fileID: 566519819}
   direction: {x: 0, y: 0, z: 0}
   characterStats: {fileID: 1193756732}
+  playerStatsManager: {fileID: 293850112}
 --- !u!1 &347917323
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameCharacterStats : MonoBehaviour
@@ -95,7 +96,8 @@ public class GameCharacterStats : MonoBehaviour
             Debug.Log("Level up");
             playerStatsManager.LevelUp();
             xp = xp - maxXP;
-            maxXP *= 2;
+            int newMaxHP = Mathf.RoundToInt(Mathf.Pow(Mathf.Sqrt(playerStatsManager.Level), 3f));
+            maxXP = newMaxHP;
         }
         xpBar.RenderNewText();
     }
