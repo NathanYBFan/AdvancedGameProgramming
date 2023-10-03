@@ -34,6 +34,11 @@ public class SysPlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Cancel"))
+            menuManager.OpenPauseMenu();
+
+        if (Time.timeScale == 0f) return;
+
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
@@ -46,21 +51,18 @@ public class SysPlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
             characterDashController.AttemptDash();
 
-        if (Input.GetButtonDown("Cancel"))
-            menuManager.OpenPauseMenu();
-
         // BELOW ARE ALL DEBUG KEYBINDS
-        if (Input.GetKeyDown(KeyCode.P)) // INCREASE HP
+        if (Input.GetKeyDown(KeyCode.P))        // INCREASE HP
             characterStats.AddCurrentHP(1);
-        else if (Input.GetKeyDown(KeyCode.O)) // DECREASE HP
+        else if (Input.GetKeyDown(KeyCode.O))   // DECREASE HP
             characterStats.AddCurrentHP(-1);
 
-        if (Input.GetKeyDown(KeyCode.L)) // INCREASE MAX HP
+        if (Input.GetKeyDown(KeyCode.L))        // INCREASE MAX HP
             characterStats.AddMaxHP(1);
-        else if (Input.GetKeyDown(KeyCode.K)) // DECREASE MAX HP
+        else if (Input.GetKeyDown(KeyCode.K))   // DECREASE MAX HP
             characterStats.AddMaxHP(-1);
 
-        if (Input.GetKeyDown(KeyCode.J)) // INCREASE XP
+        if (Input.GetKeyDown(KeyCode.J))        // INCREASE XP
             characterStats.PickedUpXP(1);
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;

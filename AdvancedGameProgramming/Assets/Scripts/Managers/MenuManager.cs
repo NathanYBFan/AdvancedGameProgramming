@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         CheckForPauseMenu();
     }
 
@@ -15,9 +16,15 @@ public class MenuManager : MonoBehaviour
     {
         CheckForPauseMenu();
         if (!pauseMenuScene.isLoaded)
+        {
+            Time.timeScale = 0f;
             SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+        }
         else
+        {
+            Time.timeScale = 1f;
             SceneManager.UnloadSceneAsync(pauseMenuScene);
+        }
     }
 
     public void LoadAdditiveScene(string sceneNameToLoad)

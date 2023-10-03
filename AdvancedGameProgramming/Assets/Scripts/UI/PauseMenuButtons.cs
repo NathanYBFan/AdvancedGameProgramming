@@ -6,6 +6,7 @@ public class PauseMenuButtons : MonoBehaviour
 
     public void ResumeButtonPressed()
     {
+        Time.timeScale = 1.0f;
         SceneManager.UnloadSceneAsync("PauseMenu");
     }
 

@@ -83,7 +83,7 @@ public class GameCharacterStats : MonoBehaviour
         if (xp >= maxXP) // If max xp is reached
         {
             Debug.Log("Level up");
-            playerStatsManager.Level++;
+            playerStatsManager.LevelUp();
             xp = xp - maxXP;
             maxXP *= 2;
         }

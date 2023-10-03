@@ -24,6 +24,7 @@ public class GameCharacterAim : MonoBehaviour
 
     private void RotateTowardsMouse()
     {
+        if (Time.timeScale == 0f) return;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f, floorLayerMask))

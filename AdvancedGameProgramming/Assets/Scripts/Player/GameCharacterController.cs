@@ -35,7 +35,7 @@ public class GameCharacterController : MonoBehaviour
 
     public void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, 0.5f);
+        isGrounded = Physics.Raycast(transform.position, -Vector3.up, 1f);
 
         SpeedControl();
     }
