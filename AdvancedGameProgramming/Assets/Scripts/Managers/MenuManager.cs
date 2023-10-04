@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Tooltip("")]
+    private GameObject upgradeMenu;
+
     private Scene pauseMenuScene;
 
     private void Start()
@@ -36,6 +40,11 @@ public class MenuManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public bool IsUpgradeMenuOpened()
+    {
+        return upgradeMenu.activeInHierarchy;
     }
 
     public void LoadAdditiveScene(string sceneNameToLoad)

@@ -34,7 +34,7 @@ public class SysPlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && !menuManager.IsSettingsMenuOpened())
+        if (Input.GetButtonDown("Cancel") && !menuManager.IsSettingsMenuOpened() && !menuManager.IsUpgradeMenuOpened())
             menuManager.OpenPauseMenu();
 
         if (Time.timeScale == 0f) return;

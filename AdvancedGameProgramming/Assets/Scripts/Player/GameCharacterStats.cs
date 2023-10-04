@@ -36,9 +36,17 @@ public class GameCharacterStats : MonoBehaviour
     [SerializeField] [Tooltip("Max amount of XP")]
     private int xpBuff = 0;
 
-    [Foldout("Specs")] [SerializeField]
-    [Tooltip("Max amount of XP")]
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("Max amount of XP")]
     private int xpMultiplier = 1;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private int baseDamage = 1;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private int damageMultiplier = 1;
 
     // Getters
     public float Xp { get { return xp; } }
@@ -46,7 +54,10 @@ public class GameCharacterStats : MonoBehaviour
     public int XpBuff { get { return xpBuff; } }
     public int XpMultiplier { get { return xpMultiplier; } }
     public int HP { get { return hp; } }
-    public int MaxHp { get {  return maxHp; } }
+    public int MaxHp { get { return maxHp; } }
+
+    public int BaseDamage { get { return baseDamage; } set { baseDamage = value; } }
+    public int DamageMultiplier { get { return damageMultiplier; } set { damageMultiplier = value; } }
 
     public void AddMaxHP(int maxHPToAdd)
     {
@@ -110,5 +121,10 @@ public class GameCharacterStats : MonoBehaviour
     public void SetXpMultiplayer(int xpMultiplierToAdd)
     {
         xpMultiplier = xpMultiplierToAdd;
+    }
+
+    public int GetDamageOutput()
+    {
+        return baseDamage * damageMultiplier;
     }
 }

@@ -54,7 +54,10 @@ public class UpgradesMenu : MonoBehaviour
             for (int i = 0; i < upgradeManager.UpgradeScriptableObjects.Count; i++)
             {
                 if (upgradeManager.UpgradeScriptableObjects[i].name == "IncreaseUpgradeOptions")
+                {
                     upgradeManager.UpgradeScriptableObjects.RemoveAt(i);
+                    return;
+                }
             }
         }
 
@@ -90,17 +93,5 @@ public class UpgradesMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         this.gameObject.SetActive(false);
-    }
-
-    public enum Powerups
-    {
-        AttackSize,
-        AttackSpeed,
-        MoveSpeed,
-        MaxHealth,
-        HpRegen,
-        XPGain,
-        BaseDamage,
-        None
     }
 }
