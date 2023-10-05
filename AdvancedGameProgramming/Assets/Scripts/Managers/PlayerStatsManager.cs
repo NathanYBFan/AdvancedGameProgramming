@@ -15,8 +15,18 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] [Tooltip("Number of Sword stacks")]
     private int numbOfSwordStacks = 0;
 
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private int baseDamage = 1;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private int critChance = 1; // Out of 50
+
     public int Level { get { return level; } }
     public int NumbOfSwordStacks { get { return numbOfSwordStacks; } set { numbOfSwordStacks = value; } }
+    public int BaseDamage { get { return baseDamage; } set { baseDamage += value; } }
+    public int CritChance { get { return critChance; } set { critChance += value; } }
 
     public void LevelUp()
     {
