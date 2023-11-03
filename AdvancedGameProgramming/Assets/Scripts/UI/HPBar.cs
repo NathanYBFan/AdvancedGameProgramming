@@ -95,8 +95,5 @@ public class HPBar : MonoBehaviour
                 heartBGs.RemoveAt(0);
             }
         }
-
     }
-
-
 }

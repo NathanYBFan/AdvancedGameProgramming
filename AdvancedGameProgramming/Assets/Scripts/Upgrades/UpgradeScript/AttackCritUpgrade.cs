@@ -10,8 +10,7 @@ public class AttackCritUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        PlayerStatsManager playerStatsManager = GameObject.Find("PlayerStatsManager").GetComponent<PlayerStatsManager>();
-        playerStatsManager.CritChance = critChanceToAdd;
+        PlayerManager._Instance.CritChance = critChanceToAdd;
     }
 
     public void IncreaseNumber(int amountToAdd)

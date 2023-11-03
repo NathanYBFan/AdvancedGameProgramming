@@ -1,14 +1,17 @@
+using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyController : AdvancedFSM
 {
-    [SerializeField]
-    private Transform mainBody;
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Tooltip("The top level body of the enemy's body")]
+    private Transform enemyOrigin;
 
     private void Start()
     {
-        mainBody.parent = EnemySpawnManager._Instance.GetEnemyContainer();
+        EnemySpawnManager._Instance.enemyInstantiatedList.Add(this);
+        enemyOrigin.parent = EnemySpawnManager._Instance.GetEnemyContainer();
     }
     private string GetStateString()
     {

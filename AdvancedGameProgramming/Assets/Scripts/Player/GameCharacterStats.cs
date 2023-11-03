@@ -1,13 +1,8 @@
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameCharacterStats : MonoBehaviour
 {
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("Current amount of XP")]
-    private PlayerStatsManager playerStatsManager;
-
     [Foldout("Script Dependancies")]
     [SerializeField] [Required] [Tooltip("XP bar to update")]
     private XPBar xpBar;
@@ -104,10 +99,9 @@ public class GameCharacterStats : MonoBehaviour
     {
         if (xp >= maxXP) // If max xp is reached
         {
-            Debug.Log("Level up");
-            playerStatsManager.LevelUp();
+            PlayerManager._Instance.LevelUp();
             xp = xp - maxXP;
-            int newMaxHP = Mathf.RoundToInt(Mathf.Pow(Mathf.Sqrt(playerStatsManager.Level), 3f));
+            int newMaxHP = Mathf.RoundToInt(Mathf.Pow(Mathf.Sqrt(PlayerManager._Instance.Level), 3f));
             maxXP = newMaxHP;
         }
         xpBar.RenderNewText();

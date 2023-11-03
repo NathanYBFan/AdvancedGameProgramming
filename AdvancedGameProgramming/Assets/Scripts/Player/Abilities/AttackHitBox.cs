@@ -8,7 +8,7 @@ public class AttackHitBox : MonoBehaviour
         {
             GameCharacterStats gameCharacterStats = GameObject.Find("PlayerController").GetComponent<GameCharacterStats>();
             int damage = gameCharacterStats.GetDamageOutput();
-            other.GetComponentInChildren<EnemyHP>().TakeDamage(damage);
+            other.GetComponentInChildren<EntityHP>().TakeDamage(damage);
         }
     }
 }

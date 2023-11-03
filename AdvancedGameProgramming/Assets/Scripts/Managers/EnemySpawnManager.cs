@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
@@ -6,7 +7,10 @@ public class EnemySpawnManager : MonoBehaviour
     public static EnemySpawnManager _Instance { get; private set; }
 
     [SerializeField]
-    private GameObject[] enemyList;
+    private GameObject[] enemyPrefabList;
+
+    [SerializeField]
+    public List<EnemyController> enemyInstantiatedList;
 
     [SerializeField]
     private Collider spawnArea;
@@ -15,7 +19,7 @@ public class EnemySpawnManager : MonoBehaviour
     private Transform enemyContainer;
 
 
-    private void Awake()
+    private void Awake()    
     {
         if (_Instance != null && _Instance != this)
         {
@@ -36,13 +40,13 @@ public class EnemySpawnManager : MonoBehaviour
         while (true)
         {
             SpawnEnemies();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
     private void SpawnEnemies ()
     {
-        foreach (var enemy in enemyList)
+        foreach (var enemy in enemyPrefabList)
         {
             if (enemy != null)
             {
@@ -50,7 +54,6 @@ public class EnemySpawnManager : MonoBehaviour
                 Vector3 spawnLocation = GetSpawnRandomLocation();
                 for (int i = 0; i < spawnAmount; i++)
                 {
-                    Debug.Log("Enemy Spawned");
                     Instantiate(enemy, spawnLocation, Quaternion.identity);
                 }
             }

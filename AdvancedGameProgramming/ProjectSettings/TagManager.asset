@@ -7,6 +7,7 @@ TagManager:
   - Transparent
   - Walls
   - Enemy
+  - Placeables
   layers:
   - Default
   - TransparentFX

@@ -54,6 +54,7 @@ public class ExpController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponentInChildren<GameCharacterStats>().PickedUpXP(OrbXPValue);
+            ExpManager._Instance.expOrbs.Remove(objectToDestroy.transform);
             Destroy(objectToDestroy);
         }
     }
@@ -66,15 +67,15 @@ public class ExpController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
-    public void AttractOrb (Transform player)
+    public void AttractOrb ()
     {
         float step = 1f * Time.deltaTime;
-        StartCoroutine(ActivateAttractOrb(player, step));
+        StartCoroutine(ActivateAttractOrb(step));
     }
 
-    public IEnumerator ActivateAttractOrb(Transform player, float step)
+    public IEnumerator ActivateAttractOrb(float step)
     {
-        objectToDestroy.transform.position = Vector3.MoveTowards(objectToDestroy.transform.position, player.position, step);
+        objectToDestroy.transform.position = Vector3.MoveTowards(objectToDestroy.transform.position, PlayerManager._Instance.PlayerBody.position, step);
         yield return new WaitForEndOfFrame();
     }
 

@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class SysPlayerInput : MonoBehaviour
@@ -26,7 +25,6 @@ public class SysPlayerInput : MonoBehaviour
     public Vector3 Direction { get { return direction; } }
 
     [SerializeField] private GameCharacterStats characterStats; // To be removed - Debug only
-    [SerializeField] private PlayerStatsManager playerStatsManager;
     // Inputs
     private float horizontal;
     private float vertical;
@@ -66,7 +64,7 @@ public class SysPlayerInput : MonoBehaviour
             characterStats.PickedUpXP(1);
 
         if (Input.GetKeyDown(KeyCode.I))        // Level Up
-            playerStatsManager.LevelUp();
+            PlayerManager._Instance.LevelUp();
 
         direction = new Vector3(horizontal, 0f, vertical).normalized;
     }

@@ -10,8 +10,7 @@ public class AttackDamageUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        PlayerStatsManager playerStatsManager = GameObject.Find("PlayerStatsManager").GetComponent<PlayerStatsManager>();
-        playerStatsManager.BaseDamage = baseDamageToAdd;
+        PlayerManager._Instance.BaseDamage = baseDamageToAdd;
     }
 
     public void IncreaseNumber(int amountToAdd)

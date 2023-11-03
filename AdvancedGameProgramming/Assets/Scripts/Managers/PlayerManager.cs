@@ -1,11 +1,18 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager _Instance { get; private set; }
+
     [Foldout("Script Dependancies")]
     [SerializeField] [Required] [Tooltip("Menu To adjust")]
     private UpgradesMenu upgradesMenu;
+
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("Player Body")]
+    private Transform playerBody;
+
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Player Level")]
@@ -27,6 +34,19 @@ public class PlayerStatsManager : MonoBehaviour
     public int NumbOfSwordStacks { get { return numbOfSwordStacks; } set { numbOfSwordStacks = value; } }
     public int BaseDamage { get { return baseDamage; } set { baseDamage += value; } }
     public int CritChance { get { return critChance; } set { critChance += value; } }
+    public Transform PlayerBody { get { return playerBody; } }
+
+    private void Awake()
+    {
+        if (_Instance != null && _Instance != this)
+        {
+            Debug.Log("Destroyed a repeated playerManager");
+            Destroy(this.gameObject);
+        }
+        else if (_Instance == null)
+            _Instance = this;
+    }
+
 
     public void LevelUp()
     {
