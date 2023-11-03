@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 
 public class ExpController : MonoBehaviour
@@ -40,10 +41,12 @@ public class ExpController : MonoBehaviour
     private float height = 0.5f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Destroy(objectToDestroy, despawnTimer);
         OrbXPValue = Random.Range(OrbXPMin, OrbXPMax);
+        objectToDestroy.transform.parent = ExpManager._Instance.GetExpContainer();
+        ExpManager._Instance.expOrbs.Add(objectToDestroy.transform);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,6 +64,18 @@ public class ExpController : MonoBehaviour
         float newY = Mathf.Sin(Time.time * speed) * height + objectToBounce.position.y;
         // Set the object's Y to the new calculated Y
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+    }
+
+    public void AttractOrb (Transform player)
+    {
+        float step = 1f * Time.deltaTime;
+        StartCoroutine(ActivateAttractOrb(player, step));
+    }
+
+    public IEnumerator ActivateAttractOrb(Transform player, float step)
+    {
+        objectToDestroy.transform.position = Vector3.MoveTowards(objectToDestroy.transform.position, player.position, step);
+        yield return new WaitForEndOfFrame();
     }
 
 }

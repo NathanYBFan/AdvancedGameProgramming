@@ -1,11 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class EnemyController : AdvancedFSM
 {
+    [SerializeField]
+    private Transform mainBody;
+
+    private void Start()
+    {
+        mainBody.parent = EnemySpawnManager._Instance.GetEnemyContainer();
+    }
     private string GetStateString()
     {
 
@@ -52,7 +56,7 @@ public class EnemyController : AdvancedFSM
 
     public void StartDeath()
     {
-        StartCoroutine(Death());
+        //StartCoroutine(Death());
     }
 
     IEnumerator Death()

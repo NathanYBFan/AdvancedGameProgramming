@@ -7,6 +7,10 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] [Tooltip("")]
     private GameObject EnemyParent;
 
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Tooltip("")]
+    private GameObject EXPDropObject;
+
     [Foldout("Specs")]
     [SerializeField] [Tooltip("")]
     private int currentHP = 10;
@@ -32,6 +36,9 @@ public class EnemyHP : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            Vector3 newPos = transform.position;
+            newPos.y += 2;
+            Instantiate(EXPDropObject, newPos, Quaternion.identity);
             Destroy(EnemyParent);
         }
     }
