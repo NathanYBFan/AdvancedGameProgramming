@@ -1,17 +1,20 @@
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EntityNavMeshMovement : MonoBehaviour
 {
-    [SerializeField]
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Tooltip("Target to moveTowards")]
     private Transform target;
 
-    [SerializeField]
+    [Foldout("Script Dependencies")]
+    [SerializeField] [Tooltip("Agent to move")]
     private NavMeshAgent agent;
 
     private void Start()
     {
-        target = GameObject.Find("PlayerBody").transform;
+        target = PlayerManager._Instance.PlayerBody;
     }
 
     // Update is called once per frame
@@ -24,4 +27,8 @@ public class EntityNavMeshMovement : MonoBehaviour
     {
         target = newTarget;
     }
+
+    public void SetMoveSpeed(float newSpeed) { agent.speed = newSpeed; }
+
+    public float GetMoveSpeed() { return agent.speed; }
 }

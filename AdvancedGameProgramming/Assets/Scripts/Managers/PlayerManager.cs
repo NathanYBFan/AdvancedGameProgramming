@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -13,6 +14,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] [Required] [Tooltip("Player Body")]
     private Transform playerBody;
 
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("Player Spawn Point")]
+    private Transform playerSpawnPoint;
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Player Level")]
@@ -35,6 +39,7 @@ public class PlayerManager : MonoBehaviour
     public int BaseDamage { get { return baseDamage; } set { baseDamage += value; } }
     public int CritChance { get { return critChance; } set { critChance += value; } }
     public Transform PlayerBody { get { return playerBody; } }
+    public Transform PlayerSpawnPoint { get { return playerSpawnPoint; } }
 
     private void Awake()
     {
@@ -47,7 +52,6 @@ public class PlayerManager : MonoBehaviour
             _Instance = this;
     }
 
-
     public void LevelUp()
     {
         level++;
@@ -59,5 +63,10 @@ public class PlayerManager : MonoBehaviour
         upgradesMenu.gameObject.SetActive(true);
         upgradesMenu.GetComponent<UpgradesMenu>().OpenMenu();
         Time.timeScale = 0f;
+    }
+
+    public void RespawnPlayer()
+    {
+        playerBody.position = playerSpawnPoint.position;
     }
 }

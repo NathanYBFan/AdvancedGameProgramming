@@ -148,8 +148,8 @@ public abstract class FSMState
 
             if ((furthest && (sqrMagnitude > currSqrMagnitude)) || (!furthest && (sqrMagnitude < currSqrMagnitude)))
             {
-               retValue = waypoints[i];
-               currSqrMagnitude = sqrMagnitude;
+                retValue = waypoints[i];
+                currSqrMagnitude = sqrMagnitude;
             }
         }
 

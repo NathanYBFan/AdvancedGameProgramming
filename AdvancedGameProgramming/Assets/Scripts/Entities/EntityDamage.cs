@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EntityDamage : MonoBehaviour
 {
-    [SerializeField]
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("Damage the enemy should do")]
     private int damage = 1;
     private void OnTriggerEnter(Collider other)
     {

@@ -7,10 +7,6 @@ public class EntityHP : MonoBehaviour
     [SerializeField] [Tooltip("The top level body of the entities body")]
     private GameObject enemyOrigin;
 
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Tooltip("EXP Prefab object to drop on death")]
-    private GameObject expPrefab;
-
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Current HP of the enemy")]
     private int currentHP = 10;
@@ -18,10 +14,6 @@ public class EntityHP : MonoBehaviour
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Maximum HP the enemy has")]
     private int maxHP = 10;
-
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("If the entity should drop an EXP orb")]
-    private bool shouldDropEXP = true;
 
     // No regen
 
@@ -33,17 +25,10 @@ public class EntityHP : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
-        CheckIfDead();
     }
 
-    private void CheckIfDead()
+    public bool CheckIsDead()
     {
-        if (currentHP <= 0)
-        {
-            if (shouldDropEXP)
-                Instantiate(expPrefab, transform.position + transform.up, Quaternion.identity);
-
-            Destroy(enemyOrigin);
-        }
+        return (currentHP <= 0);
     }
 }

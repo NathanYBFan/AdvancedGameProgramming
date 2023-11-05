@@ -80,10 +80,10 @@ public class GameCharacterStats : MonoBehaviour
 
         if (hp > maxHp) // Overheal
             hp = maxHp;
-        if (hp < 0) // Dead
+        if (hp <= 0) // Dead
         {
-            hp = 0;
-            return;
+            hp = maxHp;
+            PlayerManager._Instance.RespawnPlayer();
         }
 
         hpBar.CurrentHPChanged();

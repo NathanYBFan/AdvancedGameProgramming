@@ -18,6 +18,11 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField]
     private Transform enemyContainer;
 
+    [SerializeField]
+    private Transform patrolPoint;
+
+    public Collider SpawnArea { get { return spawnArea; } }
+    public Transform PatrolPoint { get { return patrolPoint; } }
 
     private void Awake()    
     {
@@ -37,6 +42,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private IEnumerator EnemySpawnLoop()
     {
+        if (enemyPrefabList.Length == 0) StopAllCoroutines();
         while (true)
         {
             SpawnEnemies();
@@ -67,7 +73,7 @@ public class EnemySpawnManager : MonoBehaviour
         return Random.Range(placeHolderMin, placeHolderMax);
     }
 
-    private Vector3 GetSpawnRandomLocation()
+    public Vector3 GetSpawnRandomLocation()
     {
         Vector3 randomPos = Vector3.zero;
         randomPos.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);

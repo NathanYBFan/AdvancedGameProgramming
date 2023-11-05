@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -12,13 +13,22 @@ using System.Collections.Generic;
 public enum Transition
 {
     None = 0,
-    NoHealth
+    NoHealth,
+    DashUp,
+    DashDown,
+    Chase,
+    Patrol,
+    SeePlayer
 }
 
 public enum FSMStateID
 {
     None = 0,
-    Dead
+    Chase,
+    Dashing,
+    Dead,
+    Patrol,
+    Scream
 }
 
 public class AdvancedFSM : FSM
