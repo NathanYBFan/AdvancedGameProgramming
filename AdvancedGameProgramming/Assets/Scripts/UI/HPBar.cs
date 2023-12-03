@@ -6,10 +6,6 @@ public class HPBar : MonoBehaviour
 {
     [Foldout("Script Dependancies")]
     [SerializeField] [Required] [Tooltip("")]
-    private GameCharacterStats gameCharacterStats;
-
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("")]
     private GameObject heartPrefab;
 
     [Foldout("Script Dependancies")]
@@ -34,18 +30,19 @@ public class HPBar : MonoBehaviour
 
     public void Start()
     {
-        hearts.Clear();
-        heartBGs.Clear();
+        Reset();
+    }
 
-        MaxHPChanged();
-        CurrentHPChanged();
+    public void OnEnable()
+    {
+        Reset();
     }
 
     public void CurrentHPChanged()
     {
         int numberOfExistingHearts = hearts.Count;
 
-        int newCurrentHP = gameCharacterStats.HP;
+        int newCurrentHP = GameCharacterStats._Instance.HP;
 
         if (numberOfExistingHearts < newCurrentHP) // Increased HP
         {
@@ -70,7 +67,7 @@ public class HPBar : MonoBehaviour
         int numberOfExistingHeartBGs = heartBGs.Count;
         int numberOfExistingHearts = hearts.Count;
 
-        int newMaxHP = gameCharacterStats.MaxHp;
+        int newMaxHP = GameCharacterStats._Instance.MaxHp;
 
         if (numberOfExistingHeartBGs < newMaxHP) // Increased HP
         {
@@ -95,5 +92,11 @@ public class HPBar : MonoBehaviour
                 heartBGs.RemoveAt(0);
             }
         }
+    }
+
+    private void Reset()
+    {
+        MaxHPChanged();
+        CurrentHPChanged();
     }
 }

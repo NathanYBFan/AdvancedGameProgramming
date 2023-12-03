@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using NaughtyAttributes;
 using UnityEngine.UI;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 
 public class SettingsMenu : MonoBehaviour
 {
     [Foldout("Script Dependancies")]
-    [SerializeField][Required][Tooltip("Name of settings menu scene name")]
+    [SerializeField] [Tooltip("Name of settings menu scene name")]
     private string settingsMenuSceneName;
 
     [Foldout("Script Dependancies")]
@@ -33,6 +37,14 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] [Required] [Tooltip("Controls display button")]
     private Image controlsButton;
 
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("")]
+    private VideoSettings videoSettings;
+
+    [Foldout("Script Dependancies")]
+    [SerializeField] [Required] [Tooltip("Controls display button")]
+    private AudioSettings audioSettings;
+
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Original selected button color")]
     private Color selectedButtonColor;
@@ -40,6 +52,7 @@ public class SettingsMenu : MonoBehaviour
     [Foldout("Specs")]
     [SerializeField][Tooltip("Original deselected button color")] 
     private Color deselectedButtonColor;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -50,10 +63,12 @@ public class SettingsMenu : MonoBehaviour
         videoControls.SetActive(true);
         audioControls.SetActive(false);
         inGameControls.SetActive(false);
+        LoadSettings();
     }
 
     public void UnloadScene()
     {
+        SaveSettings();
         SceneManager.UnloadSceneAsync(settingsMenuSceneName);
     }
 
@@ -90,4 +105,71 @@ public class SettingsMenu : MonoBehaviour
                 break;
         }
     }
+    public void SaveSettings()
+    {
+        // Create binary formatter
+        BinaryFormatter bf = new BinaryFormatter();
+
+        // File to create
+        FileStream file = File.Create(SaveGameManager._Instance.settingsFilePath);
+
+        bf.Serialize(file, PackageSettingsData());
+        file.Close();
+    }
+
+    public void LoadSettings()
+    {
+        if (!File.Exists(SaveGameManager._Instance.settingsFilePath)) return;
+
+        BinaryFormatter bf = new BinaryFormatter();
+
+        FileStream file = File.Open(SaveGameManager._Instance.settingsFilePath, FileMode.Open);
+        SettingsSaveData data = (SettingsSaveData) bf.Deserialize(file);
+
+        file.Close();
+
+        UnpackageSettingsData(data);
+    }
+
+    private SettingsSaveData PackageSettingsData()
+    {
+        SettingsSaveData settingsData = new SettingsSaveData();
+        settingsData.windowState = videoSettings.savedWindowState;
+        settingsData.resolutionState = videoSettings.savedResolutionState;
+        settingsData.fpsCap = videoSettings.savedFpsCap;
+        settingsData.vSyncOn = videoSettings.savedVSyncState;
+
+        settingsData.masterVolume = audioSettings.masterVolume;
+        settingsData.musicVolume = audioSettings.musicVolume;
+        settingsData.playerVolume = audioSettings.playerVolume;
+        settingsData.enemyVolume = audioSettings.enemyVolume;
+
+        return settingsData;
+    }
+
+    private void UnpackageSettingsData(SettingsSaveData data)
+    {
+        videoSettings.savedWindowState = data.windowState;
+        videoSettings.savedResolutionState = data.resolutionState;
+        videoSettings.savedFpsCap = data.fpsCap;
+        videoSettings.savedVSyncState = data.vSyncOn;
+
+        audioSettings.masterVolume = data.masterVolume;
+        audioSettings.musicVolume = data.musicVolume;
+        audioSettings.playerVolume = data.playerVolume;
+        audioSettings.enemyVolume = data.enemyVolume;
+    }
+}
+
+[Serializable]
+class SettingsSaveData
+{
+    public int windowState { get; set; }
+    public int resolutionState { get; set; }
+    public int fpsCap { get; set; }
+    public bool vSyncOn { get; set; }
+    public float masterVolume { get; set; }
+    public float musicVolume { get; set; }
+    public float playerVolume { get; set; }
+    public float enemyVolume { get; set; }
 }

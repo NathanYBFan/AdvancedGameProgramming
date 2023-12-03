@@ -24,7 +24,6 @@ public class SysPlayerInput : MonoBehaviour
     private Vector3 direction;
     public Vector3 Direction { get { return direction; } }
 
-    [SerializeField] private GameCharacterStats characterStats; // To be removed - Debug only
     // Inputs
     private float horizontal;
     private float vertical;
@@ -51,17 +50,17 @@ public class SysPlayerInput : MonoBehaviour
 
         // BELOW ARE ALL DEBUG KEYBINDS
         if (Input.GetKeyDown(KeyCode.P))        // INCREASE HP
-            characterStats.AddCurrentHP(1);
+            GameCharacterStats._Instance.AddCurrentHP(1);
         else if (Input.GetKeyDown(KeyCode.O))   // DECREASE HP
-            characterStats.AddCurrentHP(-1);
+            GameCharacterStats._Instance.AddCurrentHP(-1);
 
         if (Input.GetKeyDown(KeyCode.L))        // INCREASE MAX HP
-            characterStats.AddMaxHP(1);
+            GameCharacterStats._Instance.AddMaxHP(1);
         else if (Input.GetKeyDown(KeyCode.K))   // DECREASE MAX HP
-            characterStats.AddMaxHP(-1);
+            GameCharacterStats._Instance.AddMaxHP(-1);
 
         if (Input.GetKeyDown(KeyCode.J))        // INCREASE XP
-            characterStats.PickedUpXP(1);
+            GameCharacterStats._Instance.PickedUpXP(1);
 
         if (Input.GetKeyDown(KeyCode.I))        // Level Up
             PlayerManager._Instance.LevelUp();

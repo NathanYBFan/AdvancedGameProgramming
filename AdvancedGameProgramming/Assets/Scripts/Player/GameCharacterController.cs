@@ -48,7 +48,10 @@ public class GameCharacterController : MonoBehaviour
     public void Jump()
     {
         if (isGrounded)
+        {
             rigidbody3D.AddForce(transform.up * jumpForce);
+            AudioManager._Instance.PlayJumpSound();
+        }
     }
 
     private void SpeedControl()

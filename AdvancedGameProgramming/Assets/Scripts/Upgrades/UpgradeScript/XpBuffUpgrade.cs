@@ -10,8 +10,7 @@ public class XpBuffUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        GameCharacterStats gameCharacterStats = GameObject.Find("PlayerController").GetComponent<GameCharacterStats>();
-        gameCharacterStats.AddXpBuff(xpBuffToAdd);
+        GameCharacterStats._Instance.AddXpBuff(xpBuffToAdd);
     }
 
     public void IncreaseNumber(int amountToAdd)

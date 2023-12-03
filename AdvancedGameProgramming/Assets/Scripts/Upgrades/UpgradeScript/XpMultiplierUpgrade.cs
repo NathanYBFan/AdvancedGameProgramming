@@ -10,8 +10,7 @@ public class XpMultiplierUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        GameCharacterStats gameCharacterStats = GameObject.Find("PlayerController").GetComponent<GameCharacterStats>();
-        gameCharacterStats.SetXpMultiplayer(gameCharacterStats.XpMultiplier + xpMultiplierToAdd);
+        GameCharacterStats._Instance.SetXpMultiplayer(GameCharacterStats._Instance.XpMultiplier + xpMultiplierToAdd);
     }
 
     public void IncreaseNumber(int amountToAdd)

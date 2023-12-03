@@ -11,19 +11,16 @@ public class GameCharacterAttackManager : MonoBehaviour
     [SerializeField] [Tooltip("Character transform to get rotation direction")]
     private Transform characterBody;
 
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("")]
-    private float scale = 1;
-
     // Spawns Attack 1 hitboxes
     public void LaunchAttackOne()
     {
         GameObject attack = GameObject.Instantiate(attackOneHitBox, transform.position, characterBody.rotation);
-        attack.transform.localScale = Vector3.one * scale;
+        attack.transform.localScale = Vector3.one * GameCharacterStats._Instance.AttackSizeScale;
+        AudioManager._Instance.PlaySwordSwing();
     }
 
     public void IncreaseScale(float scaleToAdd)
     {
-        scale += scaleToAdd;
+        GameCharacterStats._Instance.AttackSizeScale += scaleToAdd;
     }
 }

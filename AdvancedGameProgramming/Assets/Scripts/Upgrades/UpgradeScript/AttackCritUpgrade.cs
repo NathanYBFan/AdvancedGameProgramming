@@ -10,7 +10,7 @@ public class AttackCritUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        PlayerManager._Instance.CritChance = critChanceToAdd;
+        GameCharacterStats._Instance.DamageMultiplier += critChanceToAdd;
     }
 
     public void IncreaseNumber(int amountToAdd)

@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class ExpController : MonoBehaviour
 {
+    // SERIALZIE FIELDS
     [Foldout("Script Dependancies")]
     [SerializeField][Required][Tooltip("What object to destroy")]
     private GameObject objectToDestroy;
-
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("Rerference to object to move")]
-    private Transform objectToBounce;
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("How long to wait before despawning itself")]
@@ -28,43 +25,23 @@ public class ExpController : MonoBehaviour
     [SerializeField] [ReadOnly] [Tooltip("The amount of xp to give to the player when/if picked up")]
     private int OrbXPValue;
 
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("The curve the bobbing animation should follow")]
-    private AnimationCurve myCurve;
-
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("Speed at which the bob should happen")]
-    private float speed = 5f;
-
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("MaxHeight the xp should bob")]
-    private float height = 0.5f;
-
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
-        Destroy(objectToDestroy, despawnTimer);
+        StartCoroutine(DespawnTimer()); // Despawn after time
+
+        // Calculate values
         OrbXPValue = Random.Range(OrbXPMin, OrbXPMax);
         objectToDestroy.transform.parent = ExpManager._Instance.GetExpContainer();
-        ExpManager._Instance.expOrbs.Add(objectToDestroy.transform);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponentInChildren<GameCharacterStats>().PickedUpXP(OrbXPValue);
-            ExpManager._Instance.expOrbs.Remove(objectToDestroy.transform);
-            Destroy(objectToDestroy);
+            GameCharacterStats._Instance.PickedUpXP(OrbXPValue);
+            ExpManager._Instance.CollectOrb(objectToDestroy.transform);
         }
-    }
-
-    void Update()
-    {
-        // Calculate what the new Y position will be
-        float newY = Mathf.Sin(Time.time * speed) * height + objectToBounce.position.y;
-        // Set the object's Y to the new calculated Y
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
     public void AttractOrb ()
@@ -78,5 +55,10 @@ public class ExpController : MonoBehaviour
         objectToDestroy.transform.position = Vector3.MoveTowards(objectToDestroy.transform.position, PlayerManager._Instance.PlayerBody.position, step);
         yield return new WaitForEndOfFrame();
     }
-
+    
+    private IEnumerator DespawnTimer()
+    {
+        yield return new WaitForSeconds(despawnTimer);
+        ExpManager._Instance.CollectOrb(objectToDestroy.transform);
+    }
 }

@@ -1,8 +1,13 @@
 using NaughtyAttributes;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GameCharacterStats : MonoBehaviour
 {
+    // INSTANCE INITIALIZATION
+    public static GameCharacterStats _Instance { get; private set; }
+
+    // SERIALIZE FIELDS
     [Foldout("Script Dependancies")]
     [SerializeField] [Required] [Tooltip("XP bar to update")]
     private XPBar xpBar;
@@ -17,7 +22,7 @@ public class GameCharacterStats : MonoBehaviour
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("XP needed before level up")]
-    private int maxXP = 10;
+    private int maxXP = 1;
 
     [Foldout("Specs")]
     [SerializeField] [Tooltip("Current amount of HP")]
@@ -43,16 +48,49 @@ public class GameCharacterStats : MonoBehaviour
     [SerializeField] [Tooltip("")]
     private int damageMultiplier = 1;
 
-    // Getters
-    public float Xp { get { return xp; } }
-    public float MaxXP { get { return maxXP; } }
-    public int XpBuff { get { return xpBuff; } }
-    public int XpMultiplier { get { return xpMultiplier; } }
-    public int HP { get { return hp; } }
-    public int MaxHp { get { return maxHp; } }
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private Vector3 areaDamageScale = new Vector3(5f, 0f, 5f);
 
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private int upgradeOptions = 2;
+
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private float cakeSize = 0.5f;
+    
+    [Foldout("Specs")]
+    [SerializeField] [Tooltip("")]
+    private float attackSizeScale = 1f;
+
+
+    // Getters & Setters
+    public int Xp { get { return xp; } set { xp = value; } }
+    public int MaxXP { get { return maxXP; } set { maxXP = value;} }
+    public int XpBuff { get { return xpBuff; } set { xpBuff = value; } }
+    public int XpMultiplier { get { return xpMultiplier; } set { xpMultiplier = value; } }
+    public int HP { get { return hp; } set { hp = value; } }
+    public int MaxHp { get { return maxHp; } set { maxHp = value; } }
     public int BaseDamage { get { return baseDamage; } set { baseDamage = value; } }
     public int DamageMultiplier { get { return damageMultiplier; } set { damageMultiplier = value; } }
+    public Vector3 AreaDamageScale { get { return areaDamageScale; } set { areaDamageScale = value; } }
+    public int UpgradeOptions { get { return upgradeOptions; } set { upgradeOptions = value; } }
+    public float CakeSize { get { return cakeSize; } set { cakeSize = value; } }
+    public float AttackSizeScale { get { return attackSizeScale; } set { attackSizeScale = value; } }
+
+
+    private void Awake()
+    {
+        if (_Instance != null && _Instance != this)
+        {
+            Debug.Log("Extra CharacterStat singleton destroyed");
+            Destroy(this);
+        }
+        else
+            _Instance = this;
+    }
+
 
     public void AddMaxHP(int maxHPToAdd)
     {
@@ -74,16 +112,21 @@ public class GameCharacterStats : MonoBehaviour
         hpBar.MaxHPChanged();
     }
 
-    public void AddCurrentHP(int hPToAdd)
+    public void AddCurrentHP(int hpToAdd)
     {
-        hp += hPToAdd;
+        hp += hpToAdd;
 
         if (hp > maxHp) // Overheal
             hp = maxHp;
+
+        if (hpToAdd < 0) // Take damage not heal
+            EffectsManager._Instance.PlayPlayerHurtEffect();
+
         if (hp <= 0) // Dead
         {
             hp = maxHp;
-            PlayerManager._Instance.RespawnPlayer();
+            EffectsManager._Instance.StopAllEffects();
+            GameManager._Instance.StartLoadLevel(GameManager._Instance.LevelNames[4]);
         }
 
         hpBar.CurrentHPChanged();

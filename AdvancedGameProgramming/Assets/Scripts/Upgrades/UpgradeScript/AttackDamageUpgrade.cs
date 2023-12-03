@@ -10,7 +10,7 @@ public class AttackDamageUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        PlayerManager._Instance.BaseDamage = baseDamageToAdd;
+        GameCharacterStats._Instance.BaseDamage += baseDamageToAdd;
     }
 
     public void IncreaseNumber(int amountToAdd)

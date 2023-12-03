@@ -14,6 +14,8 @@ public class AreaDamageController : MonoBehaviour
     {
         if (areaObject.localScale.x < 5f) newSize = baseSize;
         StartCoroutine(scaleUpCoroutine(areaObject.localScale + newSize));
+
+        GameCharacterStats._Instance.AreaDamageScale = areaObject.localScale + newSize;
     }
 
     private IEnumerator scaleUpCoroutine(Vector3 newSize)
@@ -23,5 +25,20 @@ public class AreaDamageController : MonoBehaviour
             areaObject.localScale = Vector3.Lerp(areaObject.localScale, newSize, Time.deltaTime * 10);
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void SetAreaDamageSize(Vector3 areaDamageScale)
+    {
+        areaObject.localScale = areaDamageScale;
+    }
+
+    public void Reset()
+    {
+        areaObject.localScale = baseSize;
+    }
+
+    public void LoadOld()
+    {
+        SetAreaDamageSize(GameCharacterStats._Instance.AreaDamageScale);
     }
 }

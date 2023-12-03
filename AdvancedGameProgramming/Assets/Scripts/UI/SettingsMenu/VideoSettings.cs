@@ -7,24 +7,19 @@ public class VideoSettings : MonoBehaviour
     [SerializeField, Required] private TMP_InputField fpsCap;
     [Header("Vsync Initializations")]
     [SerializeField, Required] private GameObject VSyncCheckmark;
-    private bool VSyncOn;
+
+    public int savedWindowState;
+    public int savedResolutionState;
+    public int savedFpsCap;
+    public bool savedVSyncState;
 
     // Start is called before the first frame update
-    void Awake()
+    private void OnEnable()
     {
-        WindowStateChanged(PlayerPrefs.GetInt("windowState"));
-        ResolutionChanged(PlayerPrefs.GetInt("resolution"));
-        fpsCap.text = PlayerPrefs.GetInt("fpsCap").ToString();
-        if (PlayerPrefs.GetInt("vSync") == 0)
-        {
-            VSyncOn = false;
-            VSyncCheckmark.SetActive(VSyncOn);
-        }
-        else
-        {
-            VSyncOn = true;
-            VSyncCheckmark.SetActive(VSyncOn);
-        }
+        WindowStateChanged(savedWindowState);
+        ResolutionChanged(savedResolutionState);
+        fpsCap.text = savedFpsCap.ToString();
+        VSyncCheckmark.SetActive(savedVSyncState);
     }
 
     public void WindowStateChanged(int value)
@@ -39,14 +34,14 @@ public class VideoSettings : MonoBehaviour
                 FullScreenMode.ExclusiveFullScreen,
             _ => Screen.fullScreenMode
         };
-        PlayerPrefs.SetInt("windowState", value); // Save the value to the player prefs
+        savedWindowState = value;
     }
 
     public void ResolutionChanged(int value)
     {
         // We need to check if the window state is fullscreen, as we need to pass that to the Screen.SetResolution method
-        bool fullscreen = PlayerPrefs.GetInt("windowState", 0) == 2;
-        PlayerPrefs.SetInt("resolution", value);
+        bool fullscreen = savedWindowState == 2;
+        savedResolutionState = value;
         switch (value)
         {
             case 0: // 2560x1440
@@ -64,23 +59,22 @@ public class VideoSettings : MonoBehaviour
     public void FPSCapChanged()
     {
         Application.targetFrameRate = int.Parse(fpsCap.text);
-        PlayerPrefs.SetInt("fpsCap", int.Parse(fpsCap.text));
+        savedFpsCap = int.Parse(fpsCap.text);
     }
 
     public void VSyncChanged()
     {
-        if (PlayerPrefs.GetInt("vSync") == 1) // Turn VSync off
+        if (!savedVSyncState) // Turn VSync off
         {
             QualitySettings.vSyncCount = 0; // VSync turned off
             VSyncCheckmark.SetActive(false);
-            PlayerPrefs.SetInt("vSync", 0);
+            savedVSyncState = !savedVSyncState;
         }
         else // Turn VSync on
         {
             QualitySettings.vSyncCount = 1; // Vsync On
             VSyncCheckmark.SetActive(true);
-            PlayerPrefs.SetInt("vSync", 1);
+            savedVSyncState = !savedVSyncState;
         }
-        VSyncOn = !VSyncOn;
     }
 }

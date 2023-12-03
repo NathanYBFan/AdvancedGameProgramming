@@ -17,7 +17,9 @@ public class PauseMenuButtons : MonoBehaviour
 
     public void ToMainMenuButtonPressed()
     {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        GameManager._Instance.StartLoadLevel(GameManager._Instance.LevelNames[0]);
+        SceneManager.UnloadSceneAsync("PauseMenu");
+        Time.timeScale = 1f;
     }
 
     public void QuitButtonPressed()
@@ -35,7 +37,7 @@ public class PauseMenuButtons : MonoBehaviour
         else
         {
             SceneManager.UnloadSceneAsync("SettingsMenu");
-            Time.timeScale = 0f;
+            Time.timeScale = 1f;
         }
     }
 

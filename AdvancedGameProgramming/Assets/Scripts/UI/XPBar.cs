@@ -6,10 +6,6 @@ using UnityEngine.UI;
 public class XPBar : MonoBehaviour
 {
     [Foldout("Script Dependencies")]
-    [SerializeField] [Tooltip("")]
-    private GameCharacterStats playerXpStats;
-
-    [Foldout("Script Dependencies")]
     [SerializeField] [Tooltip("Textfield that displays the number")]
     private TextMeshProUGUI displayText;
     
@@ -24,10 +20,10 @@ public class XPBar : MonoBehaviour
 
     public void RenderNewText()
     {
-        string textToDisplay = "XP: " + playerXpStats.Xp + " / " + playerXpStats.MaxXP;
+        string textToDisplay = "XP: " + GameCharacterStats._Instance.Xp + " / " + GameCharacterStats._Instance.MaxXP;
         displayText.text = textToDisplay;
 
-        float barFillAmount = playerXpStats.Xp / playerXpStats.MaxXP;
+        float barFillAmount = GameCharacterStats._Instance.Xp / GameCharacterStats._Instance.MaxXP;
         guiBar.value = barFillAmount;
     }
 }

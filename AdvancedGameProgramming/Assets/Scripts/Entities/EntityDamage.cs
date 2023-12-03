@@ -11,10 +11,7 @@ public class EntityDamage : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Placeables"))
         {
             if (other.CompareTag("Player"))
-            {
-                GameCharacterStats gcs = other.GetComponentInChildren<GameCharacterStats>();
-                gcs.AddCurrentHP(-damage);
-            }
+                GameCharacterStats._Instance.AddCurrentHP(-damage);
             else
             {
                 EntityHP entityHP = other.GetComponentInChildren<EntityHP>();

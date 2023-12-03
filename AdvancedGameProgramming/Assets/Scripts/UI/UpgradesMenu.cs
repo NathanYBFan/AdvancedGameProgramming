@@ -20,11 +20,13 @@ public class UpgradesMenu : MonoBehaviour
     [SerializeField] [Tooltip("Prefab to spawn when needed")]
     private GameObject upgradePrefab;
 
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("number of Options currenty available")]
-    private int numberOfUpgradeOptions = 2;
-
+    
     private int maxNumberOfUpgradeOptions = 5;
+
+    public void OnEnable()
+    {
+        UpdateAllUpgradeOptions();
+    }
 
     public void ReRollAllPowerups()
     {
@@ -41,7 +43,10 @@ public class UpgradesMenu : MonoBehaviour
     
     public void AddUpgradeOptions(int numberOfUpgradeOptionsToAdd)
     {
-        numberOfUpgradeOptions += numberOfUpgradeOptionsToAdd;
+
+        GameCharacterStats._Instance.UpgradeOptions += numberOfUpgradeOptionsToAdd;
+
+        int numberOfUpgradeOptions = GameCharacterStats._Instance.UpgradeOptions;
 
         if (numberOfUpgradeOptions > maxNumberOfUpgradeOptions)
             numberOfUpgradeOptions = maxNumberOfUpgradeOptions;
@@ -67,6 +72,8 @@ public class UpgradesMenu : MonoBehaviour
 
     private void UpdateAllUpgradeOptions()
     {
+        int numberOfUpgradeOptions = GameCharacterStats._Instance.UpgradeOptions;
+
         if (upgrades.Count == numberOfUpgradeOptions) return;
 
         else if (upgrades.Count < numberOfUpgradeOptions) // Need to increase number of options
@@ -78,7 +85,10 @@ public class UpgradesMenu : MonoBehaviour
         else if (upgrades.Count > numberOfUpgradeOptions) // Need to decrase number of options
         {
             for (int i = 0; i < (upgrades.Count - numberOfUpgradeOptions); i++)
+            {
+                Destroy(upgrades[0]);
                 upgrades.RemoveAt(0);
+            }
         }
     }
 

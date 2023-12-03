@@ -1,21 +1,20 @@
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager _Instance { get; private set; }
 
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("Menu To adjust")]
+    [Foldout("Script Dependancies"), Required]
+    [SerializeField] [Tooltip("Menu To adjust")]
     private UpgradesMenu upgradesMenu;
 
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("Player Body")]
+    [Foldout("Script Dependancies"), Required]
+    [SerializeField] [Tooltip("Player Body")]
     private Transform playerBody;
 
-    [Foldout("Script Dependancies")]
-    [SerializeField] [Required] [Tooltip("Player Spawn Point")]
+    [Foldout("Script Dependancies"), Required]
+    [SerializeField] [Tooltip("Player Spawn Point")]
     private Transform playerSpawnPoint;
 
     [Foldout("Specs")]
@@ -26,18 +25,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] [Tooltip("Number of Sword stacks")]
     private int numbOfSwordStacks = 0;
 
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("")]
-    private int baseDamage = 1;
-
-    [Foldout("Specs")]
-    [SerializeField] [Tooltip("")]
-    private int critChance = 1; // Out of 50
-
-    public int Level { get { return level; } }
+    public int Level { get { return level; } set { level = value; } }
     public int NumbOfSwordStacks { get { return numbOfSwordStacks; } set { numbOfSwordStacks = value; } }
-    public int BaseDamage { get { return baseDamage; } set { baseDamage += value; } }
-    public int CritChance { get { return critChance; } set { critChance += value; } }
     public Transform PlayerBody { get { return playerBody; } }
     public Transform PlayerSpawnPoint { get { return playerSpawnPoint; } }
 
@@ -68,5 +57,6 @@ public class PlayerManager : MonoBehaviour
     public void RespawnPlayer()
     {
         playerBody.position = playerSpawnPoint.position;
+        EffectsManager._Instance.PlayerSpawn();
     }
 }

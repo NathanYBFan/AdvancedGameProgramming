@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/PersistentScene.unity
+    guid: 03e82fcce5ef8054a8acc1040ef9350a
+  - enabled: 1
     path: Assets/Scenes/Menus/MainMenu.unity
     guid: fbd1b84be68862b41a429cf9bedbea4c
   - enabled: 1
@@ -15,9 +18,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/PauseMenu.unity
     guid: 221e77a78d5284448ad0b170cfb1b0ad
   - enabled: 1
-    path: Assets/Scenes/PersistentScene.unity
-    guid: 03e82fcce5ef8054a8acc1040ef9350a
+    path: Assets/Scenes/Menus/FailMenu.unity
+    guid: 95afd3d981368e3459d9a91f2b6228f4
+  - enabled: 1
+    path: Assets/Scenes/Menus/EndGameMenu.unity
+    guid: 323ce090e750bdd44bbefe1aa6a39be0
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: f7c21eda2824b6947994502004464e1c
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 27c26775bdc8cd7468a1719d6066c221
   m_configObjects: {}

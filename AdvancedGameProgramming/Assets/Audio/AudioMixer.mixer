@@ -31,20 +31,20 @@ AudioMixerController:
   m_Snapshots:
   - {fileID: 24500006}
   m_StartSnapshot: {fileID: 24500006}
-  m_SuspendThreshold: -80
+  m_SuspendThreshold: 20
   m_EnableSuspend: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ExposedParameters:
-  - guid: 724825dfc66be744f97e288bfc669d35
+  - guid: 8c85734c428c3e7479f5671fad9f14a3
     name: Enemy
-  - guid: f655ff0562c1c514b9a5b9f9fbbe901d
+  - guid: 14dfaa78f35582544b3300feffe7686e
     name: Master
-  - guid: e0fd1ccfd722a1f4682a1a9ab75fffe8
+  - guid: 56c72b3eac3d2dd449c0a05bccd16122
     name: Music
-  - guid: 6e49521a3179f544f81b2aa0a70f3a23
+  - guid: 81e1890a6ba3feb468437d28d0c3bb52
     name: Player
-  - guid: 46d6e5bb922dc394894ed7bd79e92ddd
-    name: System
+  - guid: b34c67bcba41bf74b80ed9b03aa644e8
+    name: MyExposedParam
   m_AudioMixerGroupViews:
   - guids:
     - 735e780931afa464b916caad507db7a0
@@ -101,7 +101,11 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: d5693b124495a3547baca5072a9e681b
-  m_FloatValues: {}
+  m_FloatValues:
+    14dfaa78f35582544b3300feffe7686e: 0
+    8c85734c428c3e7479f5671fad9f14a3: 0
+    56c72b3eac3d2dd449c0a05bccd16122: 0
+    e0fd1ccfd722a1f4682a1a9ab75fffe8: 1
   m_TransitionOverrides: {}
 --- !u!243 &1939136493396895177
 AudioMixerGroupController:

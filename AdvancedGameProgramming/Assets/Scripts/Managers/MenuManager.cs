@@ -47,16 +47,6 @@ public class MenuManager : MonoBehaviour
         return upgradeMenu.activeInHierarchy;
     }
 
-    public void LoadAdditiveScene(string sceneNameToLoad)
-    {
-        SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Additive);
-    }
-
-    public void LoadSingleScene(string sceneNameToLoad)
-    {
-        SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Single);
-    }
-
     private void CheckForPauseMenu()
     {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)

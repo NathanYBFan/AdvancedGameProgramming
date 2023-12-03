@@ -10,8 +10,8 @@ public class MaxHPUpgrade : MonoBehaviour, UpgradeInterface
 
     public void Run()
     {
-        GameCharacterStats gameCharacterStats = GameObject.Find("PlayerController").GetComponent<GameCharacterStats>();
-        gameCharacterStats.AddMaxHP(maxHPToAdd);
+        
+        GameCharacterStats._Instance.AddMaxHP(maxHPToAdd);
     }
 
     public void IncreaseNumber(int amountToAdd)

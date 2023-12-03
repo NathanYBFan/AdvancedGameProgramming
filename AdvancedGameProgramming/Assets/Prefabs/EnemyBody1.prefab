@@ -33,7 +33,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 851788462925426311}
   - {fileID: 5084170772082085989}
   - {fileID: 7514046598824355835}
   - {fileID: 1117595683175327159}
@@ -223,59 +222,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5084170772082085989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5272749277457902582
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 851788462925426311}
-  - component: {fileID: 6304254654973861191}
-  m_Layer: 0
-  m_Name: EnemyAnimator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &851788462925426311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272749277457902582}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3729631419367744033}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6304254654973861191
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5272749277457902582}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5350545394899116555
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +315,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5084170772082085989}
   - component: {fileID: 7961608094776727673}
-  - component: {fileID: 1943938914286706128}
   m_Layer: 0
   m_Name: EnemyController
   m_TagString: Enemy
@@ -408,31 +353,6 @@ MonoBehaviour:
   enemyOrigin: {fileID: 625433993067283778}
   currentHP: 10
   maxHP: 10
---- !u!114 &1943938914286706128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5561842953907068124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc53b952644e184cbecd776b5eb8cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyOrigin: {fileID: 3729631419367744033}
-  enemyHP: {fileID: 7961608094776727673}
-  entityNavMeshMovement: {fileID: 2187460101395052324}
-  expPrefab: {fileID: 5716334007647207301, guid: 7500af6cd3f16b244bc1157ce2186037, type: 3}
-  rayCastSpawnPoint: {fileID: 7241976634838310577}
-  enemyAnimator: {fileID: 0}
-  shouldDropEXP: 1
-  dashTime: 1
-  dashCooldown: 10
-  patrolPointLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  debugEnemyStateText: {fileID: 0}
 --- !u!1 &7225797565813355813
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +519,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cc50f6e98d488484cb034a6439b7c651, type: 3}
       propertyPath: m_Name
       value: EnemyCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cc50f6e98d488484cb034a6439b7c651, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: cc50f6e98d488484cb034a6439b7c651, type: 3}
       propertyPath: m_Enabled
